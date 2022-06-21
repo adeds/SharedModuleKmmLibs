@@ -18,7 +18,6 @@ import org.koin.dsl.module
 
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
-    appDeclaration()
     modules(
         baseModule,
         clientModule,
@@ -26,6 +25,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
         repoModule,
         useCaseModule
     )
+    appDeclaration()
 }
 
 val baseModule = module {
@@ -37,6 +37,7 @@ val clientModule = module {
         HttpClient(CIO) {
             install(ContentNegotiation) {
                 json(Json {
+                    ignoreUnknownKeys = true
                     prettyPrint = true
                     isLenient = true
                 })
