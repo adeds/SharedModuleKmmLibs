@@ -25,8 +25,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":domain", "default"))
-                implementation(project(":data", "default"))
+                api(project(":domain", "default"))
+                api(project(":data", "default"))
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
                 api("io.insert-koin:koin-core:3.2.0")
@@ -40,7 +40,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+
             }
         }
         val androidTest by getting
@@ -53,7 +53,6 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
         }
         val iosX64Test by getting
@@ -74,5 +73,12 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 32
+    }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/kotlinx-io.kotlin_module")
+        resources.excludes.add("META-INF/atomicfu.kotlin_module")
+        resources.excludes.add("META-INF/kotlinx-coroutines-io.kotlin_module")
+        resources.excludes.add("META-INF/kotlinx-coroutines-core.kotlin_module")
     }
 }

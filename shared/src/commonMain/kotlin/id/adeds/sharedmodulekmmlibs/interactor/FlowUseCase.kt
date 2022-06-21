@@ -1,4 +1,4 @@
-package id.adeds.sharedmodulekmmlibs.domain.interactor
+package id.adeds.sharedmodulekmmlibs.interactor
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*

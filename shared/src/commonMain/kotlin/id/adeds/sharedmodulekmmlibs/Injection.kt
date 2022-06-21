@@ -3,7 +3,7 @@ package id.adeds.sharedmodulekmmlibs
 import id.adeds.sharedmodulekmmlibs.data.remote.CharacterRemoteInterface
 import id.adeds.sharedmodulekmmlibs.data.remote.CharacterRemoteInterfaceImpl
 import id.adeds.sharedmodulekmmlibs.data.repository.CharacterRepositoryImpl
-import id.adeds.sharedmodulekmmlibs.domain.interactor.character.GetCharactersUseCase
+import id.adeds.sharedmodulekmmlibs.interactor.character.GetCharactersUseCase
 import id.adeds.sharedmodulekmmlibs.domain.repository.CharacterRepository
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
