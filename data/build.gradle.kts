@@ -1,6 +1,7 @@
 plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")
+    kotlin("plugin.serialization")
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -12,7 +13,5 @@ dependencies {
 
     implementation(project(":domain"))
     implementation("io.ktor:ktor-client-core:$ktorVersion")
-    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.2")
+    api("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 }

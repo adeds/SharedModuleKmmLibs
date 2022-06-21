@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization")
     id("com.android.library")
 }
 
@@ -28,6 +27,8 @@ kotlin {
             dependencies {
                 implementation(project(":domain", "default"))
                 implementation(project(":data", "default"))
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
                 api("io.insert-koin:koin-core:3.2.0")
                 api("io.insert-koin:koin-test:3.2.0")
             }
