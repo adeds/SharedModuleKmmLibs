@@ -25,12 +25,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":domain", "default"))
-                api(project(":data", "default"))
+                api(project(":domain"))
+                api(project(":data"))
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
-                api("io.insert-koin:koin-core:3.2.0")
-                api("io.insert-koin:koin-test:3.2.0")
+                implementation("io.insert-koin:koin-core:3.2.0")
+                implementation("io.insert-koin:koin-ktor:3.2.0")
             }
         }
         val commonTest by getting {
@@ -68,6 +68,7 @@ kotlin {
 }
 
 android {
+    defaultPublishConfig = "debug"
     compileSdk = 32
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {

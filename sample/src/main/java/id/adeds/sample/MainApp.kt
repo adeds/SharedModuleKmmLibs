@@ -9,10 +9,9 @@ class MainApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        initKoin {
+        initKoin(listOf(appModule)) {
             androidContext(this@MainApp)
             androidLogger()
-            modules(appModule)
         }
     }
 }

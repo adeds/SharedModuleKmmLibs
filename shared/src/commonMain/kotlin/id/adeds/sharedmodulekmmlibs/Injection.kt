@@ -3,8 +3,8 @@ package id.adeds.sharedmodulekmmlibs
 import id.adeds.sharedmodulekmmlibs.data.remote.CharacterRemoteInterface
 import id.adeds.sharedmodulekmmlibs.data.remote.CharacterRemoteInterfaceImpl
 import id.adeds.sharedmodulekmmlibs.data.repository.CharacterRepositoryImpl
-import id.adeds.sharedmodulekmmlibs.interactor.character.GetCharactersUseCase
 import id.adeds.sharedmodulekmmlibs.domain.repository.CharacterRepository
+import id.adeds.sharedmodulekmmlibs.interactor.character.GetCharactersUseCase
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -17,7 +17,8 @@ import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 
 
-fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
+fun initKoin(listAppModule: List<Module>, appDeclaration: KoinAppDeclaration = {}) = startKoin {
+    appDeclaration()
     modules(
         baseModule,
         clientModule,
@@ -25,7 +26,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
         repoModule,
         useCaseModule
     )
-    appDeclaration()
+    modules(listAppModule)
 }
 
 val baseModule = module {
