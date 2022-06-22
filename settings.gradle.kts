@@ -8,6 +8,4 @@ pluginManagement {
 
 rootProject.name = "SharedModuleKmmLibs"
 include(":shared")
-include(":domain")
-include(":data")
 include(":sample")

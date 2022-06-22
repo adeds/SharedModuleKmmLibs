@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import id.adeds.sharedmodulekmmlibs.model.CharacterUiModel
+import id.adeds.sharedmodulekmmlibs.domain.model.Character
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(list: State<List<CharacterUiModel>?>, error: State<String?>) {
+fun Greeting(list: State<List<Character>?>, error: State<String?>) {
     list.value?.let {
         Text(modifier = Modifier.fillMaxSize(), text = "data: $it")
     }

@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.adeds.sharedmodulekmmlibs.interactor.character.GetCharactersUseCase
-import id.adeds.sharedmodulekmmlibs.model.CharacterUiModel
+import id.adeds.sharedmodulekmmlibs.domain.interactor.character.GetCharactersUseCase
+import id.adeds.sharedmodulekmmlibs.domain.model.Character
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class MainViewModel(val getCharactersUseCase: GetCharactersUseCase) : ViewModel() {
 
-    private val _characters = MutableLiveData<List<CharacterUiModel>>()
-    val characters: LiveData<List<CharacterUiModel>>
+    private val _characters = MutableLiveData<List<Character>>()
+    val characters: LiveData<List<Character>>
         get() = _characters
 
     private val _error = MutableLiveData<String>()

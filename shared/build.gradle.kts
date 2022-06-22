@@ -1,11 +1,10 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("maven-publish")
+    kotlin("plugin.serialization")
 }
 
 kotlin {
@@ -25,26 +24,14 @@ kotlin {
         }
     }
 
-    targets.withType<KotlinNativeTarget> {
-        binaries.withType<Framework> {
-            isStatic = true
-
-            export(project(":domain"))
-            export(project(":data"))
-
-            transitiveExport = true
-        }
-    }
-
     val ktorVersion by System.getProperties()
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(mapOf("path" to ":domain")))
-                api(project(mapOf("path" to ":data")))
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.insert-koin:koin-core:3.2.0")
             }
         }
