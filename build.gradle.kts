@@ -1,6 +1,5 @@
 buildscript {
     val kotlinVersion by System.getProperties()
-    val ktorVersion by System.getProperties()
 
     repositories {
         gradlePluginPortal()

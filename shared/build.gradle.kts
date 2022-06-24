@@ -1,13 +1,18 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    id("maven-publish")
 }
 
 kotlin {
-    android()
-    
+    android {
+        publishLibraryVariantsGroupedByFlavor = true
+    }
+
     val xcf = XCFramework()
     listOf(
         iosX64(),
@@ -20,17 +25,27 @@ kotlin {
         }
     }
 
+    targets.withType<KotlinNativeTarget> {
+        binaries.withType<Framework> {
+            isStatic = true
+
+            export(project(":domain"))
+            export(project(":data"))
+
+            transitiveExport = true
+        }
+    }
+
     val ktorVersion by System.getProperties()
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":domain"))
-                api(project(":data"))
+                api(project(mapOf("path" to ":domain")))
+                api(project(mapOf("path" to ":data")))
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
                 implementation("io.insert-koin:koin-core:3.2.0")
-                implementation("io.insert-koin:koin-ktor:3.2.0")
             }
         }
         val commonTest by getting {
@@ -68,7 +83,6 @@ kotlin {
 }
 
 android {
-    defaultPublishConfig = "debug"
     compileSdk = 32
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
@@ -81,5 +95,21 @@ android {
         resources.excludes.add("META-INF/atomicfu.kotlin_module")
         resources.excludes.add("META-INF/kotlinx-coroutines-io.kotlin_module")
         resources.excludes.add("META-INF/kotlinx-coroutines-core.kotlin_module")
+    }
+
+    buildTypes {
+        debug {
+
+        }
+        release {
+
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+        }
     }
 }
