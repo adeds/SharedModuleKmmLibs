@@ -1,10 +1,12 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import java.lang.System.getProperty
 
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("maven-publish")
     kotlin("plugin.serialization")
+    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
 }
 
 kotlin {
@@ -18,10 +20,31 @@ kotlin {
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
+        it.compilations {
+            // todo: it.kotlinOptions.freeCompilerArgs += arrayOf("-linker-options", "-lsqlite3")
+        }
         it.binaries.framework {
             baseName = "shared"
+            isStatic = false
+            transitiveExport = true
             xcf.add(this)
         }
+    }
+
+    multiplatformSwiftPackage {
+        buildConfiguration {
+            when (val config = getProperty("BUILD_CONFIGURATION", "debug")) {
+                "debug" -> debug()
+                "release" -> release()
+                else -> named(config)
+            }
+        }
+        packageName("SharedmoduleKmmLibs")
+        swiftToolsVersion("5.4")
+        targetPlatforms {
+            iOS { v("13") }
+        }
+        outputDirectory(File(rootDir, "/"))
     }
 
     val ktorVersion by System.getProperties()
